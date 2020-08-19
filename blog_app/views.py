@@ -58,7 +58,7 @@ def one_post(request, post_id):
 def add_comment(request, post_id):
     str_id = str(post_id)
     comm = Comment.objects.create(name = request.POST['name'], comment = request.POST['comment'], post = Post.objects.get(id = post_id))
-    # request.session['user'] = comm.name
+    request.session['user'] = comm.name
     return redirect(f'/posts/{str_id}')
 
 
