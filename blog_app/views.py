@@ -9,6 +9,8 @@ def index(request):
         'all_posts': Post.objects.all(),
         'user': request.session['user']
     }
+    if 'user' not in request.session:
+        request.session['user'] = 'you'
     return render(request, 'index.html', context)
 
 
@@ -17,6 +19,8 @@ def new_post(request):
     context= {
         'user': request.session['user']
         }
+    if 'user' not in request.session:
+        request.session['user'] = 'you'
     return render(request, 'new_post.html', context)
 
 
@@ -46,14 +50,15 @@ def one_post(request, post_id):
         'user': request.session['user']
         
     }
-    
+    if 'user' not in request.session:
+        request.session['user'] = 'you'
     return render(request, 'one_post.html', context)
 
 ### creating a comment
 def add_comment(request, post_id):
     str_id = str(post_id)
     comm = Comment.objects.create(name = request.POST['name'], comment = request.POST['comment'], post = Post.objects.get(id = post_id))
-    request.session['user'] = comm.name
+    # request.session['user'] = comm.name
     return redirect(f'/posts/{str_id}')
 
 
@@ -65,6 +70,8 @@ def search(request):
             'user': request.session['user']
              
         }
+        if 'user' not in request.session:
+            request.session['user'] = 'you'
         return render(request, "index.html", context)
     else:
         return redirect('/')
