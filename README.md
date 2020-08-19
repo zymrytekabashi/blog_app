@@ -16,7 +16,7 @@ $ source env/bin/activate
 (env)$ pip install -r requirements.txt
 
 # Migrate the database.
-(env)$ python manage.py makemigrations
+(env)$ python manage.py makemigrations <br>
 (env)$ python manage.py migrate
 
 # Run the local server via:
