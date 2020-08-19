@@ -1,0 +1,41 @@
+{% extends 'base.html' %} {% block 'content' %} {% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li {% if message.tags %} class="{{ message.tags }} text-danger" {% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+<div class="col-sm-12 py-3 px-5 ">
+    <h3>Add a new post</h3>
+    <form action="posts/new" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group mt-3">
+            <label for="cover_image">Upload picture:</label>
+            <div class="custom-file">
+                <input type="file" class="custom-file-input" id="cover_image" name="cover_image" required>
+                <label class="custom-file-label" for="customFile">Choose file</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" class="form-control" id="title" name="title" placeholder="ex. DAY TRIP AND WINE TASTING TOUR IN BERAT, AT NURELLARI WINERY" required>
+        </div>
+        <div class="form-group">
+            <label for="desc">Description</label>
+            <textarea rows="5" type="text" class="form-control" name="desc" placeholder="ex. We’ll start the exploration with the castle, its famous churches, the water cisterns and the amazing panorama it offers at the panorama deck. We’ll also visit the museum of the famous icons painter Onufri where we’ll be able to admire some of his masterpieces."
+                required></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-block btn-info">Publish</button>
+    </form>
+</div>
+
+
+<script>
+    $('.custom-file-input').on('change', function() {
+        let fileName = $(this).val().split('\\').pop();
+        $(this).next('.custom-file-label').addClass("selected").html(fileName);
+    });
+</script>
+{% endblock %}

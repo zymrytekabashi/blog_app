@@ -1,0 +1,35 @@
+{% extends 'base.html' %} {% block 'content' %}
+
+<!-- search  -->
+<form action="/search" class="form-inline d-flex justify-content-center md-form form-sm active-purple-2 mt-2">
+    <input name="q" class="form-control form-control-sm mr-3 my-3 w-50" type="text" placeholder="Search" aria-label="Search">
+    <i class="fas fa-search" style="color: #a19e9e" aria-hidden="true"></i>
+</form>
+
+<!-- search -->
+
+
+<!-- all posts -->
+<div class="row my-5 text-center shadow-lg p-3 mb-5 rounded">
+    {% if all_posts %} {% for post in all_posts.all %}
+    <div class="col-md-3 text-dark">
+        <div class="card w-100 bg-transparent text-white">
+            <div class="card-image">
+                <a href="/posts/{{post.id}}">
+                    {% if post.cover_image %}
+                    <img class="card-img-top " src="{{post.cover_image.url}}" alt="Card image cap">{% endif %}
+                </a>
+            </div>
+            <div class="card-body">
+                <a href="/posts/{{post.id}}">
+                    <h5 class="text-white">{{post.title}}</h5>
+                </a>
+            </div>
+        </div>
+    </div>
+    {% endfor %} {% endif %}
+</div>
+
+<!-- all posts -->
+
+{% endblock %}

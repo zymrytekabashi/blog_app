@@ -1,0 +1,68 @@
+{% extends 'base.html' %} {% block 'content' %}
+
+<!-- Display the requested post -->
+<div class="row">
+    <div class="col-md-4">
+        {% if post.cover_image %}
+        <img src="{{ post.cover_image.url }}" class="img-thumbnail" alt="cover image" /> {% endif %}
+    </div>
+    <div class="col-md-8">
+        <h3>{{post.title}}</h3>
+        <p>{{post.desc}}</p>
+    </div>
+</div>
+<!-- Display the requested post -->
+
+<!-- divider -->
+<div class="row">
+    <div class="col-sm-12">
+        <hr class="border-white">
+    </div>
+</div>
+<!-- divider -->
+
+<!-- All comments per post are displayed here -->
+<div class="row">
+    <div class="col-sm-12">
+        <h5>Comments</h5>
+        {% for com in all_comments %}
+        <div class="card bg-darkblue border-rounded">
+            <div class="card-body">
+                <h5 class="card-title">{{com.comment}}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">~ {{com.name}}</h6>
+
+                <small>{{com.created_at}}</small>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<!-- end of comments section -->
+
+<!-- divider -->
+<div class="row">
+    <div class="col-sm-12">
+        <hr class="border-white">
+    </div>
+</div>
+<!-- divider -->
+
+<!-- The form to add a comment -->
+<div class="row ">
+    <div class="col-md-6">
+        <h5>Leave a comment</h5>
+        <form action="/add_comment/{{post.id}}" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <input type="text" name="name" class="form-control" placeholder="Your name">
+            </div>
+            <div class="form-group">
+                <textarea name="comment" placeholder="Leave a comment" class="form-control" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>
+<!-- end of form -->
+
+{% endblock %}
