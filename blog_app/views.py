@@ -55,7 +55,6 @@ def search(request):
     if "q" in request.GET:
         context = {
             "all_posts": Post.objects.filter(title__contains=request.GET["q"]),
-            'user': request.session['user']
              
         }
         return render(request, "index.html", context)
